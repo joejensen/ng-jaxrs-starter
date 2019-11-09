@@ -1,0 +1,128 @@
+openapi: 3.0.0
+info:
+  title: ngjaxrs-api
+  version: 1.0.0
+servers:
+- url: http://localhost/api
+paths:
+  /users:
+    get:
+      operationId: listUsers
+      parameters:
+      - description: How many users to return at one time (max 100)
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDtos'
+          description: A paged array of users
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              explode: false
+              schema:
+                type: string
+              style: simple
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+          description: unexpected error
+      summary: List all users
+      tags:
+      - users
+      x-accepts: application/json
+      x-tags:
+      - tag: users
+    post:
+      operationId: createUsers
+      responses:
+        201:
+          description: Null response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+          description: unexpected error
+      summary: Create a user
+      tags:
+      - users
+      x-accepts: application/json
+      x-tags:
+      - tag: users
+  /users/{userId}:
+    get:
+      operationId: showUserById
+      parameters:
+      - description: The id of the user to retrieve
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+          description: Expected response to a valid request
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+          description: unexpected error
+      summary: Info for a specific user
+      tags:
+      - users
+      x-accepts: application/json
+      x-tags:
+      - tag: users
+components:
+  schemas:
+    UserDto:
+      example:
+        name: name
+        id: 0
+        tag: tag
+      properties:
+        id:
+          format: int64
+          type: integer
+        name:
+          type: string
+        tag:
+          type: string
+      required:
+      - id
+      - name
+      type: object
+    UserDtos:
+      items:
+        $ref: '#/components/schemas/UserDto'
+      type: array
+    ErrorDto:
+      properties:
+        code:
+          format: int32
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
