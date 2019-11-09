@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+    <id>assembly</id>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <fileSets>
+        <fileSet>
+            <directory>src/main/distribution/common</directory>
+            <outputDirectory>./</outputDirectory>
+            <lineEnding>keep</lineEnding>
+            <fileMode>0744</fileMode>
+            <directoryMode>0744</directoryMode>
+        </fileSet>
+    </fileSets>
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>lib</outputDirectory>
+            <unpack>false</unpack>
+            <useProjectArtifact>true</useProjectArtifact>
+            <fileMode>0744</fileMode>
+            <directoryMode>0744</directoryMode>
+        </dependencySet>
+    </dependencySets>
+</assembly>
+
