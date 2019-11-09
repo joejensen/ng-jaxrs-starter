@@ -1,7 +1,7 @@
 # ng-jaxrs-starter
 ### A Maven / Angular / JAX-RS(RestEasy) starter project.
 
-####Features
+#### Features
 + Build both the Angular FrontEnd and JAX-RS backend via a single maven command.
 + Frontend client and backend resource definitions are automatically built from an OpenApi spec to keep them in sync.
 + Angular frontend can be run via Angular CLI with a proxy to the JAX-RS backend for testing
